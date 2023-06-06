@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html">
+<div layout:fragment="mainFragment">
+    <div>
+        <form method="post" th:action="@{'/add-task'}">
+            <button type="button" class="btn btn-outline-warning mt-3" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                + Add New Task
+            </button>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">New Task</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    Task Name:
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <input type="text" placeholder="Task name..." class="form-control" th:name="a_name">
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    Task description:
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                <textarea placeholder="Description..." th:rows="7" class="form-control"
+                                          th:name="a_description"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    Task Deadline Date:
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <input type="date" class="form-control" th:name="a_deadline">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-warning">Add Task</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="mt-3">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>DEADLINE DATE</th>
+                <th>IS COMPLETED</th>
+                <th>DETAILS</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="zadacha : ${zadachi}">
+                <td th:text="${zadacha.id}"></td>
+                <td th:text="${zadacha.name}"></td>
+                <td th:text="${zadacha.deadlineDate}"></td>
+                <td th:text="${zadacha.completed ? 'YES' : 'NO'}"></td>
+                <td><a th:href="@{'/details/' + ${zadacha.id}}" class="btn btn-warning btn-sm">Details</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</html>

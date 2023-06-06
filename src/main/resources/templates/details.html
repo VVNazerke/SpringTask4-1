@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html">
+
+<div layout:fragment="mainFragment">
+
+    <form th:action="@{'/save'}" method="post">
+        <input type="hidden" th:value="${zadacha.id}" th:name="s_id">
+        <div class="row ">
+            <div class="col-6 mx-auto mb-1">
+                <label>TASK NAME:</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 mx-auto">
+                <input type="text" class="form-control" th:value="${zadacha.name}" th:name="s_name">
+            </div>
+        </div>
+
+        <div class="row mt-3 mb-1">
+            <div class="col-6 mx-auto">
+                <label>TASK DESCRIPTION:</label>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-6 mx-auto">
+                <textarea th:text="${zadacha.description}" th:rows="7" class="form-control"
+                          th:name="s_description"></textarea>
+            </div>
+        </div>
+
+        <div class="row mt-3 mb-1">
+            <div class="col-6 mx-auto">
+                <label>TASK DEADLINE DATE:</label>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-6 mx-auto">
+                <input type="date" class="form-control" th:value="${zadacha.deadlineDate}"
+                       th:name="s_deadlineDate">
+            </div>
+        </div>
+
+        <div class="row mt-3 mb-1">
+            <div class="col-6 mx-auto">
+                <label>COMPLETED:</label>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-6 mx-auto">
+                <select class="form-select" th:name="s_completed">
+                    <option th:selected="${zadacha.isCompleted()==true}" th:text="YES"></option>
+                    <option th:selected="${zadacha.isCompleted()==false}" th:text="NO"></option>
+                </select>
+            </div>
+        </div>
+        <div class="row d-flex">
+            <div class="col-6 mx-auto mt-3">
+                <button class="btn btn-success btn-sm">SAVE</button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger btn-sm ms-2" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                    DELETE
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <form th:action="@{'/delete'}" method="post">
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete a task</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label>Are you sure?</label>
+                        <input type="hidden" th:value="${zadacha.id}" th:name="d_id">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+</html>
